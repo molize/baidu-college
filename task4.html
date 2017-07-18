@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>任务四队列</title>
+	<style type="text/css">
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		}
+		input[type="number"]{
+		  -moz-appearance: textfield;
+		}
+		#content span {
+			display: inline-block;
+			padding: 5px 10px;
+			background-color: red;
+			color: #fff;
+			margin: 10px 10px;
+		}
+	</style>
+</head>
+<body>
+<input type="number" id="entry" /> 
+<button id="leftInsert">左侧入</button>
+<button id="rightInsert">右侧入</button>
+<button id="leftDel">左侧出</button>
+<button id="rightDel">右侧出</button>
+<div id="content"></div>
+<script type="text/javascript">
+	var box = document.getElementById("content");
+
+	//左侧插入
+	document.getElementById("leftInsert").onclick = function() {
+		var _num = document.getElementById("entry");
+		if(_num != "") {
+			var _span = document.createElement("span");
+			_span.textContent = _num.value;
+			_span.onclick = function() {
+				this.parentNode.removeChild(this);
+			}
+			if(box.childNodes.length == 0) {
+				box.appendChild(_span);
+				_num.value = "";
+			}
+			else {
+				box.insertBefore(_span,box.childNodes[0]);
+				_num.value = "";
+			}
+		}
+	}
+	//左侧删除
+	document.getElementById("leftDel").onclick = function() {
+		if(box.childNodes.length == 0) {
+			return false;
+		}
+		box.removeChild(box.childNodes[0]);
+	}
+	//右侧插入
+	document.getElementById("rightInsert").onclick = function() {
+		var _num = document.getElementById("entry");
+		if(_num != "") {
+			var _span = document.createElement("span");
+			_span.textContent = _num.value;
+			_span.onclick = function() {
+				this.parentNode.removeChild(this);
+			}
+			box.appendChild(_span);
+			_num.value = "";
+		}
+	}
+	//右侧删除
+	document.getElementById("rightDel").onclick = function() {
+		if(box.childNodes.length == 0) {
+			return false;
+		}
+		box.removeChild(box.lastChild);
+	}
+</script>
+</body>
+</html>
